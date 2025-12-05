@@ -21,6 +21,7 @@
   background: var(--color-bg);
   cursor: pointer;
   font-size: 0.875rem;
+  color: var(--color-text);
 }
 
 .toolbar button:hover {
@@ -29,7 +30,7 @@
 
 .toolbar button.active {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-primary-contrast);
   border-color: var(--color-primary);
 }
 
@@ -42,7 +43,7 @@
 .editor {
   min-height: 200px;
   padding: 1rem;
-  background: white;
+  background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   font-size: 1.25rem;
@@ -52,7 +53,7 @@
 .editor :global([data-expressive][data-style="handwritten"]) {
   font-family: 'Caveat', cursive;
   font-size: 1.4em;
-  color: teal;
+  color: var(--color-expressive-handwritten);
 }
 
 .editor :global([data-expressive][data-style="shout"]) {
@@ -62,13 +63,13 @@
 
 .editor :global([data-expressive][data-style="bully"]) {
   font-weight: bold;
-  color: crimson;
+  color: var(--color-expressive-bully);
   font-style: italic;
 }
 
 .editor :global([data-interactive]) {
-  color: navy;
-  border-bottom: 2px dotted navy;
+  color: var(--color-interactive-link);
+  border-bottom: 2px dotted var(--color-interactive-link);
   cursor: help;
 }
 
@@ -82,29 +83,17 @@
   background: var(--color-bg);
 }
 
-/* Mood Preview Styles */
-.mood-calm {
-  border-left: 4px solid oklch(0.7 0.15 150);
-}
-
+/* Mood Preview Styles - uses gradient vars from globals.css */
 .mood-calm .editor {
-  background: oklch(0.98 0.01 150);
-}
-
-.mood-tense {
-  border-left: 4px solid oklch(0.6 0.2 30);
+  background: var(--gradient-calm);
 }
 
 .mood-tense .editor {
-  background: oklch(0.98 0.02 30);
-}
-
-.mood-joyful {
-  border-left: 4px solid oklch(0.75 0.2 90);
+  background: var(--gradient-tense);
 }
 
 .mood-joyful .editor {
-  background: oklch(0.99 0.02 90);
+  background: var(--gradient-joyful);
 }
 
 /* Mood Badge */

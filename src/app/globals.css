@@ -1,15 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap');
 
 :root {
-  --color-bg: #fafafa;
-  --color-surface: #f0f0f0;
-  --color-surface-hover: #e5e5e5;
-  --color-text: #1a1a1a;
-  --color-text-subtle: #666;
-  --color-border: #ddd;
-  --color-primary: #0066cc;
-  --color-danger: #cc3333;
-  --color-success: #33aa33;
+  /* Light Theme (oklch) - matches viewer design tokens */
+  --color-bg: oklch(98% 0 0);
+  --color-surface: oklch(94% 0 0);
+  --color-surface-hover: oklch(90% 0 0);
+  --color-text: oklch(15% 0 0);
+  --color-text-subtle: oklch(45% 0 0);
+  --color-border: oklch(85% 0 0);
+  --color-primary: oklch(55% 0.2 260);
+  --color-primary-contrast: oklch(100% 0 0);
+  --color-danger: oklch(50% 0.2 25);
+  --color-danger-contrast: oklch(100% 0 0);
+  --color-success: oklch(55% 0.2 145);
+
+  /* Expressive text colors (for DSL preview - matching viewer) */
+  --color-expressive-handwritten: oklch(55% 0.23 260);
+  /* blue - matches viewer's --color-interactive */
+  --color-expressive-bully: oklch(55% 0.2 20);
+  /* red */
+  --color-interactive-link: oklch(35% 0.12 260);
+  /* navy */
+
+  /* Focus ring */
+  --color-focus-ring: oklch(from var(--color-primary) l c h / 0.25);
+
+  /* Shadows */
+  --shadow-card: 0 8px 24px oklch(0% 0 0 / 0.1);
+  --shadow-modal: 0 20px 60px oklch(0% 0 0 / 0.3);
+
+  /* Mood Gradients (for preview) */
+  --gradient-calm: linear-gradient(180deg, oklch(90% 0.03 220) 0%, oklch(85% 0.05 230) 100%);
+  --gradient-tense: linear-gradient(180deg, oklch(85% 0.1 30) 0%, oklch(75% 0.15 25) 100%);
+  --gradient-joyful: linear-gradient(180deg, oklch(92% 0.1 95) 0%, oklch(88% 0.12 85) 100%);
+}
+
+/* Dark Theme Override */
+:root[data-theme='dark'] {
+  --color-bg: oklch(15% 0 0);
+  --color-surface: oklch(20% 0 0);
+  --color-surface-hover: oklch(25% 0 0);
+  --color-text: oklch(92% 0 0);
+  --color-text-subtle: oklch(65% 0 0);
+  --color-border: oklch(30% 0 0);
+  --color-primary: oklch(65% 0.2 255);
+  --color-primary-contrast: oklch(100% 0 0);
+  --color-danger: oklch(60% 0.18 25);
+  --color-danger-contrast: oklch(100% 0 0);
+  --color-success: oklch(60% 0.18 145);
+
+  /* Expressive text colors (lighter for dark bg - matching viewer) */
+  --color-expressive-handwritten: oklch(65% 0.2 255);
+  /* blue - matches viewer's dark --color-interactive */
+  --color-expressive-bully: oklch(65% 0.18 20);
+  --color-interactive-link: oklch(70% 0.1 260);
+
+  /* Focus ring */
+  --color-focus-ring: oklch(from var(--color-primary) l c h / 0.35);
+
+  /* Shadows: deeper for dark mode */
+  --shadow-card: 0 8px 24px oklch(0% 0 0 / 0.4);
+  --shadow-modal: 0 20px 60px oklch(0% 0 0 / 0.6);
+
+  /* Mood Gradients: reduced L for dark mode */
+  --gradient-calm: linear-gradient(180deg, oklch(30% 0.03 220) 0%, oklch(25% 0.05 230) 100%);
+  --gradient-tense: linear-gradient(180deg, oklch(35% 0.1 30) 0%, oklch(28% 0.15 25) 100%);
+  --gradient-joyful: linear-gradient(180deg, oklch(38% 0.1 95) 0%, oklch(32% 0.12 85) 100%);
 }
 
 * {
@@ -21,6 +77,7 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   margin: 0;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 /* TipTap editor base styles */

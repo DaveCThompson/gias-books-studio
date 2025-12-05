@@ -91,8 +91,8 @@
 }
 
 .previewWord {
-    color: navy;
-    border-bottom: 2px dotted navy;
+    color: var(--color-interactive-link);
+    border-bottom: 2px dotted var(--color-interactive-link);
     cursor: help;
     font-size: 1.1rem;
     padding: 0.25rem 0;
@@ -130,7 +130,7 @@
     border: none;
     border-radius: 0.5rem;
     background: var(--color-primary);
-    color: white;
+    color: var(--color-primary-contrast);
     cursor: pointer;
     font-size: 0.875rem;
     font-weight: 500;

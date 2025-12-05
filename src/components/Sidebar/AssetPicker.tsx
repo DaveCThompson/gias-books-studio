@@ -218,11 +218,18 @@ export function AssetPicker({
                         <p className={styles.emptyText}>No {assetType} assets yet</p>
                     ) : (
                         assets.map((asset) => (
-                            <button
+                            <div
                                 key={asset.path}
                                 className={`${styles.assetCard} ${currentValue === asset.path ? styles.selected : ''
                                     }`}
                                 onClick={() => onSelect(asset.path)}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        onSelect(asset.path);
+                                    }
+                                }}
                             >
                                 {isImage ? (
                                     // eslint-disable-next-line @next/next/no-img-element
@@ -243,7 +250,7 @@ export function AssetPicker({
                                 <span className={styles.assetName}>
                                     {asset.name}
                                 </span>
-                            </button>
+                            </div>
                         ))
                     )}
                 </div>

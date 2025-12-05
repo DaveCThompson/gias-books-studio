@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { X } from '@phosphor-icons/react';
 import { useBookStore } from '@/data/stores/bookStore';
 import type { PageData } from '@/data/schemas';
 import { cn } from '@/utils/cn';
@@ -62,7 +63,7 @@ export function PageList() {
                                     className={styles.deleteButton}
                                     onClick={(e) => handleDeleteClick(e, index)}
                                 >
-                                    ×
+                                    <X size={14} />
                                 </button>
                             )}
                         </li>

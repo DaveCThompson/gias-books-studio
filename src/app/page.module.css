@@ -1,20 +1,12 @@
+/* src/app/page.module.css - Book Library Landing Page */
+
 .page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
   display: flex;
   min-height: 100vh;
   align-items: center;
   justify-content: center;
   font-family: var(--font-geist-sans);
-  background-color: var(--background);
+  background-color: var(--color-bg);
 }
 
 .main {
@@ -25,7 +17,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  background-color: var(--foreground);
+  background-color: var(--color-surface);
   padding: 120px 60px;
 }
 
@@ -44,7 +36,7 @@
   line-height: 48px;
   letter-spacing: -2.4px;
   text-wrap: balance;
-  color: var(--text-primary);
+  color: var(--color-text);
 }
 
 .intro p {
@@ -52,12 +44,12 @@
   font-size: 18px;
   line-height: 32px;
   text-wrap: balance;
-  color: var(--text-secondary);
+  color: var(--color-text-subtle);
 }
 
 .intro a {
   font-weight: 500;
-  color: var(--text-primary);
+  color: var(--color-text);
 }
 
 .ctas {
@@ -84,25 +76,24 @@
 }
 
 a.primary {
-  background: var(--text-primary);
-  color: var(--background);
+  background: var(--color-primary);
+  color: var(--color-bg);
   gap: 8px;
 }
 
 a.secondary {
-  border-color: var(--button-secondary-border);
+  border-color: var(--color-border);
+  color: var(--color-text);
 }
 
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
+    opacity: 0.9;
   }
 
   a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
+    background: var(--color-surface-hover);
   }
 }
 
@@ -119,23 +110,5 @@ a.secondary {
     font-size: 32px;
     line-height: 40px;
     letter-spacing: -1.92px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
-
-  .page {
-    --background: #000;
-    --foreground: #000;
-
-    --text-primary: #ededed;
-    --text-secondary: #999;
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
   }
 }

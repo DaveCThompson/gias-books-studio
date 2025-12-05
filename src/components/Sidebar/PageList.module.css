@@ -25,7 +25,7 @@
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
     background: var(--color-primary);
-    color: white;
+    color: var(--color-primary-contrast);
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
@@ -61,7 +61,7 @@
 
 .pageItem.active {
     background: var(--color-primary);
-    color: white;
+    color: var(--color-primary-contrast);
 }
 
 .pageNumber {
@@ -79,7 +79,7 @@
 }
 
 .pageItem.active .pagePreview {
-    color: rgba(255, 255, 255, 0.8);
+    color: oklch(from var(--color-primary-contrast) l c h / 0.8);
 }
 
 .deleteButton {
@@ -100,5 +100,5 @@
 }
 
 .deleteButton:hover {
-    background: rgba(204, 51, 51, 0.1);
+    background: oklch(from var(--color-danger) l c h / 0.1);
 }

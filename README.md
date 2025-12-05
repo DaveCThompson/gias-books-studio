@@ -53,7 +53,17 @@ cmd /c mklink /D books "..\gias-books\src\books"
 | Rich Text | TipTap with custom marks |
 | State | Zustand |
 | Validation | Zod |
-| Styling | CSS Modules |
+| Styling | CSS Modules + oklch + Semantic Variables |
+
+### Styling Architecture
+
+Uses the **shared design system** from the viewer:
+- **oklch color space** – Perceptual uniformity, easy dark mode via L-shifting
+- **Semantic CSS variables** – All colors via `--color-*` tokens
+- **Dark mode** – Toggle via 🌙 button (bottom-right), managed by `useThemeManager`
+- **Symlink sync** – `src/styles/variables.css` → viewer's tokens
+
+See [../gias-books/docs/DESIGN-SYSTEM.md](../gias-books/docs/DESIGN-SYSTEM.md) for full spec.
 
 ---
 

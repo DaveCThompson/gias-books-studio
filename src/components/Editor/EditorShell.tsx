@@ -6,6 +6,7 @@ import { getBook, saveBook } from '@/utils/fileIO';
 import { PageList } from '@/components/Sidebar/PageList';
 import { Inspector } from '@/components/Sidebar/Inspector';
 import { TextEditor } from '@/components/Editor/TextEditor';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import styles from './EditorShell.module.css';
 
 // Convert book path to API route for preview
@@ -106,6 +107,7 @@ export function EditorShell({ bookSlug }: EditorShellProps) {
                 </main>
                 <Inspector />
             </div>
+            <ThemeToggle />
         </div>
     );
 }

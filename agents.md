@@ -57,6 +57,38 @@ This document provides context and guidelines for AI agents working on this code
 
 ---
 
+## Styling Architecture
+
+See **[../gias-books/docs/DESIGN-SYSTEM.md](../gias-books/docs/DESIGN-SYSTEM.md)** for the complete shared design system spec.
+
+### Core Principles
+- **oklch color space** – All colors defined in `oklch(L C H / alpha)` format
+- **Semantic CSS variables** – Never hardcode colors; use `--color-*` tokens
+- **Dark mode via `data-theme`** – Managed by `useThemeManager` hook
+- **CSS Modules** – Every component has co-located `*.module.css`
+- **`cn()` utility** – Use for conditional classes (wraps `clsx`)
+
+### Symlink Sync (Option B)
+
+The studio should symlink to the viewer's `variables.css` for shared tokens:
+
+```powershell
+# PowerShell as Admin (required on Windows for mklink)
+mkdir src\styles 2>$null
+cmd /c mklink src\styles\variables.css "..\..\gias-books\src\styles\variables.css"
+```
+
+Verify sync status:
+```bash
+node scripts/verify-style-sync.js
+```
+
+### Theme Toggle
+
+The `ThemeToggle` component (bottom-right) allows simulating dark mode for content preview. Theme persists via localStorage.
+
+---
+
 ## Common Tasks
 
 ### Adding a new expressive style

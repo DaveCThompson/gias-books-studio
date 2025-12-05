@@ -24,6 +24,7 @@
         opacity: 0;
         transform: translateY(10px) scale(0.98);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -79,7 +80,7 @@
     border: none;
     border-radius: 0.5rem;
     background: var(--color-danger);
-    color: white;
+    color: var(--color-danger-contrast);
     cursor: pointer;
     font-size: 0.875rem;
     font-weight: 500;
