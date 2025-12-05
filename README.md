@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GIA Studio (gias-books-studio)
 
-## Getting Started
+A high-craft WYSIWYG story editor for creating interactive children's storybooks. Outputs JSON + assets consumed by the companion [gias-books](https://github.com/DaveCThompson/gias-books) viewer.
 
-First, run the development server:
+---
+
+## Quick Start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the book library.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Architecture
 
-## Learn More
+### Relationship to Viewer
 
-To learn more about Next.js, take a look at the following resources:
+```
+GIA_CODE/
+├── gias-books-studio/         ← THIS PROJECT (Editor)
+│   └── books/                 ← Symlink → ../gias-books/src/books/
+│
+└── gias-books/                ← Companion viewer
+    └── src/books/
+        └── slimey/
+            ├── data.json      ← Studio WRITES, Viewer READS
+            └── assets/
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Key:** The `books/` folder is a symlink to the viewer's source. Edits in Studio are immediately available in the Viewer.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Symlink Setup
 
-## Deploy on Vercel
+If the `books/` symlink is missing or broken:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```powershell
+cd gias-books-studio
+rmdir books  # Remove broken symlink
+cmd /c mklink /D books "..\gias-books\src\books"
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Technology Stack
+
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 16 (App Router) |
+| Rich Text | TipTap with custom marks |
+| State | Zustand |
+| Validation | Zod |
+| Styling | CSS Modules |
+
+---
+
+## Key Features
+
+- **Rich Text Editor** - TipTap-based with custom DSL marks
+- **Expressive Text** - `handwritten`, `shout`, `bully` styles
+- **Interactive Text** - Tooltips on words
+- **Page Management** - Add, delete, reorder pages
+- **Asset Upload** - Illustrations, masks, narration
+- **Live Sync** - Changes visible in viewer immediately
+
+---
+
+## DSL Tag Format
+
+Content uses a custom DSL format stored in `data.json`:
+
+```
+[expressive:handwritten]different[/expressive]
+[interactive:wearing glasses]bespectacled[/interactive]
+```
+
+The editor converts between DSL and HTML for editing.
+
+---
+
+## API Routes
+
+| Route | Method | Purpose |
+|-------|--------|---------|
+| `/api/books` | GET | List all books |
+| `/api/books` | POST | Create new book |
+| `/api/books/[slug]` | GET | Get book data |
+| `/api/books/[slug]` | PUT | Save book data |
+| `/api/upload` | POST | Upload asset file |
+
+---
+
+## Development Workflow
+
+1. Edit in Studio at `http://localhost:3000`
+2. Preview in Viewer at `http://localhost:3001` (run viewer separately)
+3. Save in Studio → immediately reflected in Viewer
+
+---
+
+## Git Repository
+
+- **GitHub:** https://github.com/DaveCThompson/gias-books-studio
+- **Companion:** https://github.com/DaveCThompson/gias-books
