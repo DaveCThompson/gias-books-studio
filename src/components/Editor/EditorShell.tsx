@@ -8,6 +8,11 @@ import { Inspector } from '@/components/Sidebar/Inspector';
 import { TextEditor } from '@/components/Editor/TextEditor';
 import styles from './EditorShell.module.css';
 
+// Convert book path to API route for preview
+function getPreviewUrl(path: string): string {
+    return path.replace('/books/', '/api/static/');
+}
+
 interface EditorShellProps {
     bookSlug: string;
 }
@@ -15,6 +20,7 @@ interface EditorShellProps {
 export function EditorShell({ bookSlug }: EditorShellProps) {
     const book = useBookStore((state) => state.book);
     const isDirty = useBookStore((state) => state.isDirty);
+    const currentPageIndex = useBookStore((state) => state.currentPageIndex);
     const loadBook = useBookStore((state) => state.loadBook);
     const markClean = useBookStore((state) => state.markClean);
     const [saving, setSaving] = useState(false);
@@ -48,6 +54,10 @@ export function EditorShell({ bookSlug }: EditorShellProps) {
         );
     }
 
+    // Get current page illustration reactively
+    const currentPage = book.pages[currentPageIndex];
+    const illustration = typeof currentPage?.illustration === 'string' ? currentPage.illustration : undefined;
+
     return (
         <div className={styles.shell}>
             <header className={styles.header}>
@@ -72,8 +82,27 @@ export function EditorShell({ bookSlug }: EditorShellProps) {
 
             <div className={styles.workspace}>
                 <PageList />
-                <main className={styles.editor}>
-                    <TextEditor />
+                <main className={styles.editorArea}>
+                    {/* Page Preview */}
+                    <div className={styles.previewPane}>
+                        {illustration ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                                src={getPreviewUrl(illustration)}
+                                alt="Page illustration"
+                                className={styles.previewImage}
+                            />
+                        ) : (
+                            <div className={styles.noPreview}>
+                                <span>🖼️</span>
+                                <p>No illustration set</p>
+                            </div>
+                        )}
+                    </div>
+                    {/* Text Editor */}
+                    <div className={styles.editor}>
+                        <TextEditor />
+                    </div>
                 </main>
                 <Inspector />
             </div>

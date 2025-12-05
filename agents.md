@@ -89,3 +89,56 @@ The `books/` folder is a symlink to `../gias-books/src/books/`. If broken:
 rmdir books
 cmd /c mklink /D books "..\gias-books\src\books"
 ```
+
+---
+
+## API Routes for Assets
+
+Assets are served via API routes because the `books/` symlink isn't directly accessible from Next.js public:
+
+| Route | Purpose |
+|-------|---------|
+| `/api/static/[slug]/assets/[file]` | Serve book assets (images, audio) |
+| `/api/assets/[slug]` | List assets for a book |
+| `/api/upload` | Upload new assets |
+
+### Converting Paths for Preview
+```typescript
+// Convert book path to API route for preview
+function getPreviewUrl(path: string): string {
+    // /books/slimey/assets/image.png → /api/static/slimey/assets/image.png
+    return path.replace('/books/', '/api/static/');
+}
+```
+
+---
+
+## Common Pitfalls
+
+### Zustand Reactivity
+Use proper selectors for reactive updates. `getState()` won't trigger re-renders:
+```tsx
+// ❌ Won't update when currentPageIndex changes
+const page = book.pages[useBookStore.getState().currentPageIndex];
+
+// ✅ Proper reactive subscription
+const currentPageIndex = useBookStore((s) => s.currentPageIndex);
+const page = book.pages[currentPageIndex];
+```
+
+### ESLint Disable Comments
+For `<img>` tags that can't use Next.js Image, add the disable comment:
+```tsx
+{/* eslint-disable-next-line @next/next/no-img-element */}
+<img src={url} alt="description" />
+```
+
+### TipTap SSR
+Always set `immediatelyRender: false` in useEditor config for Next.js App Router:
+```typescript
+const editor = useEditor({
+    immediatelyRender: false,  // ← Required for SSR
+    extensions: [...],
+});
+```
+
