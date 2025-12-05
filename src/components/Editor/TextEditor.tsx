@@ -41,6 +41,7 @@ export function TextEditor() {
                 editor.commands.setContent(newHtml);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [editor, page?.pageNumber]);
 
     if (!editor || !page) return null;
