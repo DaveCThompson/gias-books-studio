@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const formData = await req.formData();
     const file = formData.get('file') as File;
     const slug = formData.get('slug') as string;
-    const pageNumber = formData.get('pageNumber') as string;
+    const assetType = formData.get('assetType') as string | null;
 
     if (!file || !slug) {
         return NextResponse.json({ error: 'Missing file or slug' }, { status: 400 });
@@ -16,7 +16,13 @@ export async function POST(req: Request) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
     const ext = path.extname(file.name);
-    const filename = `page-${pageNumber}-illustration${ext}`;
+    const baseName = path.basename(file.name, ext).replace(/[^a-zA-Z0-9-_]/g, '-');
+
+    // Generate unique filename with timestamp to avoid collisions
+    const timestamp = Date.now();
+    const prefix = assetType || 'asset';
+    const filename = `${prefix}-${baseName}-${timestamp}${ext}`;
+
     const assetsDir = path.join(BOOKS_DIR, slug, 'assets');
 
     await mkdir(assetsDir, { recursive: true });

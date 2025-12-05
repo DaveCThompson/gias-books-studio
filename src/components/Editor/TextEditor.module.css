@@ -71,3 +71,59 @@
   border-bottom: 2px dotted navy;
   cursor: help;
 }
+
+/* Disabled button state */
+.toolbar button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.toolbar button:disabled:hover {
+  background: var(--color-bg);
+}
+
+/* Mood Preview Styles */
+.mood-calm {
+  border-left: 4px solid oklch(0.7 0.15 150);
+}
+
+.mood-calm .editor {
+  background: oklch(0.98 0.01 150);
+}
+
+.mood-tense {
+  border-left: 4px solid oklch(0.6 0.2 30);
+}
+
+.mood-tense .editor {
+  background: oklch(0.98 0.02 30);
+}
+
+.mood-joyful {
+  border-left: 4px solid oklch(0.75 0.2 90);
+}
+
+.mood-joyful .editor {
+  background: oklch(0.99 0.02 90);
+}
+
+/* Mood Badge */
+.moodBadge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--color-surface);
+  border-radius: 1rem;
+  color: var(--color-text-subtle);
+  text-transform: capitalize;
+}
+
+/* Make container relative for badge positioning */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
